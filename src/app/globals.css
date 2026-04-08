@@ -1,23 +1,34 @@
 @import "tailwindcss";
 
 :root {
+   color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
+
+  /* EventCircle Brand Colors */
+  --ec-primary: #5b3d88;
+  --ec-accent: #c53074;
+  --ec-secondary: #19729f;
+
+  --ec-gray-100: #a0a1a1;
+  --ec-gray-200: #868787;
+  --ec-gray-300: #6f6871;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* EventCircle mapping */
+  --color-ec-primary: var(--ec-primary);
+  --color-ec-accent: var(--ec-accent);
+  --color-ec-secondary: var(--ec-secondary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 
 body {
   background: var(--background);
