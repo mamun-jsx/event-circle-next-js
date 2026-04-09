@@ -31,13 +31,13 @@ const HomeHero = () => {
           <div className="flex flex-wrap gap-5">
             <Link
               href="/dashboard/add-events"
-              className="px-8 py-4 bg-[var(--ec-primary)] text-white font-bold rounded-2xl hover:bg-[var(--ec-accent)] transition-all shadow-xl shadow-[var(--ec-primary)]/20 hover:scale-105"
+              className="px-8 py-4 bg-ec-primary text-white font-bold rounded-2xl hover:bg-[var(--ec-accent)] transition-all shadow-xl shadow-[var(--ec-primary)]/20 hover:scale-105"
             >
               Start Hosting
             </Link>
             <Link
-              href="/dashboard/buy-events"
-              className="px-8 py-4 border-2 border-[var(--ec-primary)] text-[var(--ec-primary)] font-bold rounded-2xl hover:bg-[var(--ec-primary)] hover:text-white transition-all hover:scale-105"
+              href="/events"
+              className="px-8 py-4 border-2 border-ec-primary text-ec-primary font-bold rounded-2xl hover:bg-[var(--ec-primary)] hover:text-white transition-all hover:scale-105"
             >
               Explore Events
             </Link>
