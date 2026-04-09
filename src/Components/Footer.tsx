@@ -89,7 +89,7 @@ const Footer = () => {
           </span>{" "}
           |
           <Link
-            href="https://github.com"
+            href="https://github.com/mamun-jsx"
             className="ml-1 underline hover:text-white"
           >
             github/mamun.jsx
