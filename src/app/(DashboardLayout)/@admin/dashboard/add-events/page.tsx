@@ -1,7 +1,12 @@
-import React from "react";
+import AddEventForm from "@/Components/Form-Data/AddEvent.Form";
+
 
 const AddEvents = () => {
-  return <div className="text-2xl font-bold">Add Events</div>;
+  return (
+    <section>
+      <AddEventForm />
+    </section>
+  );
 };
 
 export default AddEvents;

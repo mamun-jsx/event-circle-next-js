@@ -6,24 +6,24 @@ const HomeHero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center px-6 overflow-hidden bg-white">
       {/* Dynamic Brand Blobs */}
-      <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-[var(--ec-primary)]/10 rounded-full blur-[120px] animate-pulse"></div>
-      <div className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] bg-[var(--ec-accent)]/10 rounded-full blur-[100px]"></div>
+      <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-(--ec-primary)/10 rounded-full blur-[120px] animate-pulse"></div>
+      <div className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] bg-(--ec-accent)/10 rounded-full blur-[100px]"></div>
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Content Side */}
         <div className="text-left order-2 lg:order-1">
-          <div className="inline-block px-4 py-2 rounded-full bg-[var(--ec-gray-100)]/50 border border-[var(--ec-gray-200)] text-[var(--ec-primary)] text-xs font-bold uppercase tracking-widest mb-6">
+          <div className="inline-block px-4 py-2 rounded-full bg-(--ec-gray-100)/50 border border-(--ec-gray-200) text-ec-primary text-xs font-bold uppercase tracking-widest mb-6">
             ✨ Next Generation Event Platform
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black leading-tight text-black mb-6">
             Every Moment <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--ec-primary)] via-[var(--ec-accent)] to-[var(--ec-secondary)]">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-ec-primary via-ec-accent to-ec-secondary">
               Deserves a Circle
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-[var(--ec-gray-300)] max-w-lg mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-(--ec-gray-300) max-w-lg mb-10 leading-relaxed">
             Host spectacular events, manage instant ticketing, and build your
             community with the world's most intuitive platform.
           </p>
@@ -31,13 +31,13 @@ const HomeHero = () => {
           <div className="flex flex-wrap gap-5">
             <Link
               href="/dashboard/add-events"
-              className="px-8 py-4 bg-ec-primary text-white font-bold rounded-2xl hover:bg-[var(--ec-accent)] transition-all shadow-xl shadow-[var(--ec-primary)]/20 hover:scale-105"
+              className="px-8 py-4 bg-ec-primary text-white font-bold rounded-2xl hover:bg-ec-accent transition-all shadow-xl shadow-(--ec-primary)/20 hover:scale-105"
             >
               Start Hosting
             </Link>
             <Link
               href="/events"
-              className="px-8 py-4 border-2 border-ec-primary text-ec-primary font-bold rounded-2xl hover:bg-[var(--ec-primary)] hover:text-white transition-all hover:scale-105"
+              className="px-8 py-4 border-2 border-ec-primary text-ec-primary font-bold rounded-2xl hover:bg-ec-primary hover:text-white transition-all hover:scale-105"
             >
               Explore Events
             </Link>
