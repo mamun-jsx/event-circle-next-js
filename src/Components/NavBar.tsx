@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const token = localStorage.getItem("token"); // get token from localstorage
+  const token = localStorage?.getItem("token"); // get token from localstorage
 
   const navLinks = [
     { name: "Home", href: "/" },
