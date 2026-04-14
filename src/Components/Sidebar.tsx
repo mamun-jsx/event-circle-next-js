@@ -11,6 +11,7 @@ const Sidebar = () => {
     { name: "Dashboard", href: "/dashboard" },
     { name: "Add Events", href: "/dashboard/add-events" },
     { name: "Manage Events", href: "/dashboard/manage-events" },
+    { name: "All Users", href: "/dashboard/all-users" },
     { name: "Home", href: "/" },
   ];
 

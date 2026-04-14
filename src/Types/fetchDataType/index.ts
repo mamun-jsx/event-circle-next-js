@@ -21,3 +21,5 @@ export interface IAuthResponseForLogin {
     role: string;
   };
 }
+
+

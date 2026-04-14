@@ -1,18 +1,27 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const token = localStorage.getItem("token"); // get token from localstorage
 
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Events", href: "/events" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Dashboard", href: "/dashboard" },
+    token
+      ? { name: "Dashboard", href: "/dashboard" }
+      : { name: "Login", href: "/login" },
   ];
+
+  const handleLogout = async () => {
+    localStorage.removeItem("token");
+    router.refresh();
+    router.push("/login");
+  };
 
   return (
     <nav className=" text-white bg-black sticky top-0 z-50 border-b border-[#868787]">
@@ -39,6 +48,7 @@ const NavBar = () => {
               {link.name}
             </Link>
           ))}
+          {token && <button onClick={handleLogout}>Logout</button>}
         </div>
 
         {/* Mobile Menu Button (Hamburger) */}
