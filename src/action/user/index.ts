@@ -20,3 +20,6 @@ export const getSingleEvents = async (id: string) => {
     console.log(error);
   }
 };
+
+
+
