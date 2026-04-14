@@ -38,3 +38,14 @@ export const updateEvent = async (id: string, data: IEvent) => {
     return error;
   }
 };
+
+// delete event via ID
+export const deleteEventById = async (id: string) => {
+  try {
+    const res = await axiosIntance.delete(`/api/admin/delete-event/${id}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
