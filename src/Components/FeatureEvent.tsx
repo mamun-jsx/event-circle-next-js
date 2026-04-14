@@ -10,7 +10,7 @@ const FeatureEvent = ({ allEvents }: { allEvents: IEvent[] }) => {
   );
 
   // Filter logic based on the active tab
-  const filteredEvents = allEvents.filter((event) => {
+  const filteredEvents = allEvents?.filter((event) => {
     if (activeTab === "FEATURED") return event.isFeatured === true;
     return event.type === activeTab;
   });
@@ -52,8 +52,8 @@ const FeatureEvent = ({ allEvents }: { allEvents: IEvent[] }) => {
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredEvents.length > 0 ? (
-          filteredEvents.map((event) => (
+        {filteredEvents?.length > 0 ? (
+          filteredEvents?.map((event) => (
             <EventCard key={event.id} event={event} />
           ))
         ) : (

@@ -10,7 +10,7 @@ const EventsDetails = async ({ params }: PageProps) => {
 
   const singeEvent = await getSingleEvents(eventId);
   console.log("single events", singeEvent);
-  // destructure the objects
+
   const {
     title,
     image,
@@ -23,8 +23,6 @@ const EventsDetails = async ({ params }: PageProps) => {
     isFeatured,
     organizerName,
     organizerEmail,
-    createdAt,
-    updatedAt,
   } = singeEvent;
 
   return (
@@ -120,12 +118,12 @@ const EventsDetails = async ({ params }: PageProps) => {
               </li>
             </ul>
 
-            <button className="w-full py-4 bg-ec-accent hover:bg-black text-white font-bold rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-ec-accent/20">
+            <button className="w-full cursor-pointer py-4 bg-ec-accent hover:bg-black text-white font-bold rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-ec-accent/20">
               Buy Ticket Now
             </button>
 
             <p className="text-center text-gray-400 text-xs mt-4 italic">
-              *Limited seats available for this {type.toLowerCase()} event.
+              * Limited seats available for this {type.toLowerCase()} event *
             </p>
           </div>
         </div>
