@@ -1,5 +1,6 @@
 import Footer from "@/Components/Footer";
 import NavBar from "@/Components/NavBar";
+import { Toaster } from "react-hot-toast";
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -7,6 +8,7 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
       <NavBar />
       <main className="flex-grow">{children}</main>
       <Footer />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

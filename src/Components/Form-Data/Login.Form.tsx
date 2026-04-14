@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ILoginFormInputLogin } from "@/Types/fetchDataType";
 import { loginUser } from "@/action/auth/auth.login";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 export default function LoginForm() {
   const router = useRouter();
   const {
@@ -18,10 +19,13 @@ export default function LoginForm() {
       const result = await loginUser(data);
 
       // result is now typed as IAuthResponse
-      if (result && (result.success )) {
+      if (result && result.success) {
         localStorage.setItem("token", result.token);
+        toast.success("Login successful");
         router.refresh();
         router.push("/");
+      } else {
+        toast.error("Login failed");
       }
     } catch (error) {
       console.error("Login failed:", error);

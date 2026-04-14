@@ -4,6 +4,7 @@ import Link from "next/link";
 import { IRegisterFormInput } from "@/Types/fetchDataType";
 import { registerUser } from "@/action/auth/auth.register";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -20,8 +21,11 @@ const RegisterForm = () => {
       console.log("Register Result:", result);
       if (result && result.success) {
         localStorage.setItem("token", result.token);
+        toast.success("Registration successful");
         router.refresh();
         router.push("/");
+      } else {
+        toast.error("Registration failed");
       }
     } catch (error) {
       console.error("Registration failed:", error);

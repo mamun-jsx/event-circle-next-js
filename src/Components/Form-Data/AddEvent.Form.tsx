@@ -1,31 +1,16 @@
 "use client";
+import { createEvent } from "@/action/admin";
+import { EventTypeEnum, IAddFormInputEvent } from "@/Types/formData";
 import { useForm, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 
-enum EventTypeEnum {
-  PUBLIC = "PUBLIC",
-  PRIVATE = "PRIVATE",
-}
-interface IAddFormInput {
-  title: string;
-  image: string;
-  description: string;
-  date: string;
-  time: string;
-  venue: string;
-  type: EventTypeEnum;
-  registrationFee: number;
-  isFeatured: boolean;
-  organizer: {
-    name: string;
-    email: string;
-  };
-}
 const AddEventForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<IAddFormInput>({
+  } = useForm<IAddFormInputEvent>({
     defaultValues: {
       type: EventTypeEnum.PUBLIC,
       registrationFee: 0,
@@ -33,8 +18,17 @@ const AddEventForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<IAddFormInput> = (data) =>
-    console.log(typeof data.registrationFee);
+  const onSubmit: SubmitHandler<IAddFormInputEvent> = async (data) => {
+    const response = await createEvent(data);
+    // 2. Check the "success" property you send from your Express controller
+    if (response) {
+      toast.success("Event created successfully!");
+      reset();
+    } else {
+      // 3. Handle cases where the server returns success: false
+      toast.error("Failed to add data");
+    }
+  };
 
   const labelStyle = "block text-sm font-semibold text-[--ec-gray-300] mb-1";
   const inputStyle =

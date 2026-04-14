@@ -1,6 +1,6 @@
 "use client";
 import Sidebar from "@/Components/Sidebar";
-
+import { Toaster } from "react-hot-toast";
 const DashboardLayout = ({
   admin,
   user,
@@ -33,6 +33,7 @@ const DashboardLayout = ({
         <div className="max-w-7xl w-full mx-auto">
           {role === "USER" ? user : admin}
         </div>
+        <Toaster position="top-right" reverseOrder={false} />
       </main>
     </div>
   );
