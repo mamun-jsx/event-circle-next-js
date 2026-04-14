@@ -1,22 +1,32 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
-
-interface IRegisterFormInput {
-  name: string;
-  email: string;
-  password: string;
-}
+import { IRegisterFormInput } from "@/Types/fetchDataType";
+import { registerUser } from "@/action/auth/auth.register";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IRegisterFormInput>();
 
-  const onSubmit: SubmitHandler<IRegisterFormInput> = (data) =>
-    console.log("Register Data:", data);
+  // action for register
+  const onSubmit: SubmitHandler<IRegisterFormInput> = async (data) => {
+    try {
+      const result = await registerUser(data);
+      console.log("Register Result:", result);
+      if (result && result.success) {
+        localStorage.setItem("token", result.token);
+        router.refresh();
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
   // Using your brand variables directly
   const labelStyle = "block text-sm font-medium text-gray-100 mb-2";

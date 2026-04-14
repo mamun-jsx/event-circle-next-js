@@ -2,27 +2,30 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
-// import { loginAction } from "@/action/auth/auth.login"; // Use this in your onSubmit
-
-interface ILoginFormInput {
-  email: string;
-  password: string;
-}
-
+import { ILoginFormInputLogin } from "@/Types/fetchDataType";
+import { loginUser } from "@/action/auth/auth.login";
+import { useRouter } from "next/navigation";
 export default function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginFormInput>();
+  } = useForm<ILoginFormInputLogin>();
 
-  const onSubmit: SubmitHandler<ILoginFormInput> = async (data) => {
-    console.log("Form Data:", data);
-    // You can call your Server Action or API here:
-    // const formData = new FormData();
-    // formData.append("email", data.email);
-    // formData.append("password", data.password);
-    // await loginAction(formData);
+  const onSubmit: SubmitHandler<ILoginFormInputLogin> = async (data) => {
+    try {
+      const result = await loginUser(data);
+
+      // result is now typed as IAuthResponse
+      if (result && (result.success )) {
+        localStorage.setItem("token", result.token);
+        router.refresh();
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   // Styles pulled from your specific design
@@ -82,7 +85,7 @@ export default function LoginForm() {
 
           <button
             type="submit"
-            className="w-full py-3 bg-[#c53074] text-white font-bold rounded-lg hover:bg-[#5b3d88] transition-all transform active:scale-95"
+            className="w-full py-3 hover:cursor-pointer bg-[#c53074] text-white font-bold rounded-lg hover:bg-[#5b3d88] transition-all transform active:scale-95"
           >
             Sign In
           </button>
