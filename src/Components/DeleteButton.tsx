@@ -1,9 +1,9 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import { deleteEventById } from "@/action/admin";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { deleteEventById } from "@/action/admin";
 
 export const DeleteButton = ({ id }: { id: string }) => {
   const router = useRouter();

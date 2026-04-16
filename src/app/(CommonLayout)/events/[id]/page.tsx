@@ -1,4 +1,5 @@
 import { getSingleEvents } from "@/action/user";
+import { BuyTicketButton } from "@/Components/BookTicketButton";
 import { Calendar, MapPin, Clock, ShieldCheck, Mail, User } from "lucide-react";
 
 interface PageProps {
@@ -118,9 +119,18 @@ const EventsDetails = async ({ params }: PageProps) => {
               </li>
             </ul>
 
-            <button className="w-full cursor-pointer py-4 bg-ec-accent hover:bg-black text-white font-bold rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-ec-accent/20">
+            <BuyTicketButton
+              id={eventId}
+              image={image}
+              name={title}
+              price={registrationFee}
+              date={date}
+              time={time}
+              organizerEmail={organizerEmail}
+            />
+            {/* <button className="w-full cursor-pointer py-4 bg-ec-accent hover:bg-black text-white font-bold rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-ec-accent/20">
               Buy Ticket Now
-            </button>
+            </button> */}
 
             <p className="text-center text-gray-400 text-xs mt-4 italic">
               * Limited seats available for this {type.toLowerCase()} event *
