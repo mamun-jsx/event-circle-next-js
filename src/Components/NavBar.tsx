@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { useRouter, usePathname } from "next/navigation";
+
+// 1. Removed 'async' from the component definition
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
   const router = useRouter();
-  const token = localStorage?.getItem("token"); // get token from localstorage
+  const pathname = usePathname();
+  // Read cookie only once when component mounts
+  useEffect(() => {
+    const savedToken = Cookies.get("auth-token");
+    setToken(savedToken);
+  }, [pathname]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -17,12 +26,20 @@ const NavBar = () => {
       : { name: "Login", href: "/login" },
   ];
 
-  const handleLogout = async () => {
-    localStorage.removeItem("token");
-    router.refresh();
+  const handleLogout = () => {
+    // 3. Clear the cookie so proxy.ts blocks access
+    Cookies.remove("auth-token");
+    Cookies.remove("user-email");
+    Cookies.remove("user-role");
+    localStorage.removeItem("token"); // Optional backup
+    localStorage.removeItem("user-role"); // Optional backup
+    localStorage.removeItem("user-email"); // Optional backup
+
+    setToken(undefined); // Update local state
+    router.refresh(); // Tell Next.js to re-sync server components
     router.push("/login");
   };
-
+  console.log("token from nav bar", token);
   return (
     <nav className=" text-white bg-black sticky top-0 z-50 border-b border-[#868787]">
       <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">

@@ -20,23 +20,35 @@ const RegisterForm = () => {
     await toast.promise(
       (async () => {
         const result = await registerUser(data);
-        console.log("Register Result:", result);
+
         if (result && result?.success) {
+          // 1. Store in LocalStorage (as requested)
           localStorage.setItem("token", result?.token);
-          toast.success("Registration successful");
+          localStorage.setItem("userEmail", result?.data?.email);
+
+          // 2. Store in Cookies (Correct syntax: one per line or separate calls)
+          // Note: Set 'auth-token' first
+          document.cookie = `auth-token=${result?.token}; path=/; samesite=strict`;
+
+          // If you need the email in cookies too, it needs its own line:
+          document.cookie = `user-email=${result?.data?.email}; path=/; samesite=strict`;
+
+          // 3. Trigger immediate UI update
           router.refresh();
           router.push("/");
+
+          return result;
         } else {
-          toast.error("Registration failed");
+          // Throw error so toast.promise catches it for the 'error' state
+          throw new Error(result?.message || "Registration failed");
         }
       })(),
       {
         loading: "Registering...",
-        success: "Registration successful!",
-        error: "Registration failed",
+        success: "Welcome to EventCircle!",
+        error: (err) => `Error: ${err.message}`,
       },
     );
-
   };
 
   // Using your brand variables directly

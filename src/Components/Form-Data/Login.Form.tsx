@@ -15,20 +15,22 @@ export default function LoginForm() {
   } = useForm<ILoginFormInputLogin>();
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get("redirect") || "/";
-  console.log("redirectPath -> ", searchParams);
   const onSubmit: SubmitHandler<ILoginFormInputLogin> = async (data) => {
     // 1. toast.promise wraps the entire login logic
     await toast.promise(
       (async () => {
         const result = await loginUser(data);
-
         // If result exists but success is false, manually throw to trigger 'error' toast
         if (!result || !result.success) {
           throw new Error(result?.message || "Login failed");
         }
 
         // Success logic (token storage and navigation)
-        localStorage.setItem("token", result.token);
+        // localStorage.setItem("token", result.token);
+        document.cookie = `auth-token=${result.token}; path=/; samesite=strict`;
+        document.cookie = `user-email=${result?.data?.email}; path=/; samesite=strict`;
+        localStorage.setItem("token", result.token); 
+        localStorage.setItem("user-email", result?.data?.email);
         router.refresh();
         router.push(redirectPath);
 

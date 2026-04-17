@@ -1,4 +1,4 @@
-import axiosIntance from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
 import { Role } from "@/Types/enum/Roles";
 import { IRegisterFormInput } from "@/Types/fetchDataType";
 
@@ -20,11 +20,9 @@ interface ApiResponse {
 }
 
 export const registerUser = async (payload: IRegisterFormInput) => {
-  const data_response = await axiosIntance.post<ApiResponse>(
+  const data_response = await axiosInstance.post<ApiResponse>(
     "/auth/register",
     payload,
   );
-  console.log("data_response", data_response);
   return data_response;
-  
 };

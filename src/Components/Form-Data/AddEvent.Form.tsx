@@ -19,14 +19,16 @@ const AddEventForm = () => {
   });
 
   const onSubmit: SubmitHandler<IAddFormInputEvent> = async (data) => {
-    const response = await createEvent(data);
-    // 2. Check the "success" property you send from your Express controller
-    if (response) {
-      toast.success("Event created successfully!");
-      reset();
-    } else {
-      // 3. Handle cases where the server returns success: false
-      toast.error("Failed to add data");
+    try {
+      const response = await createEvent(data);
+      if (response && (response as any).success !== false) {
+        toast.success("Event created successfully!");
+        reset();
+      } else {
+        toast.error((response as any)?.message || "Failed to add data");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Failed to add data - Forbidden");
     }
   };
 

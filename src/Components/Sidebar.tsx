@@ -3,9 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const Sidebar = () => {
+const Sidebar = ({ role = "USER" }: { role?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const role = "ADMIN";
 
   const LinksForAdmin = [
     { name: "Dashboard", href: "/dashboard" },

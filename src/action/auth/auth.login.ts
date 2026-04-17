@@ -1,4 +1,4 @@
-import axiosIntance from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
 import {
   IAuthResponseForLogin,
   ILoginFormInputLogin,
@@ -6,7 +6,7 @@ import {
 
 export const loginUser = async (data: ILoginFormInputLogin) => {
   try {
-    const data_response = await axiosIntance.post<IAuthResponseForLogin, IAuthResponseForLogin>(
+    const data_response = await axiosInstance.post<IAuthResponseForLogin, IAuthResponseForLogin>(
       "/auth/login",
       data,
     );
