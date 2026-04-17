@@ -9,7 +9,7 @@ const DashboardLayout = ({
   user: React.ReactNode;
 }) => {
   
-  const role = "ADMIN";
+  const role = "USER";
 
   return (
     <div className="flex min-h-screen">

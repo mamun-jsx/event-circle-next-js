@@ -12,12 +12,14 @@ const Sidebar = () => {
     { name: "Add Events", href: "/dashboard/add-events" },
     { name: "Manage Events", href: "/dashboard/manage-events" },
     { name: "All Users", href: "/dashboard/all-users" },
+    { name: "Ticket List", href: "/dashboard/all-tickets" },
     { name: "Home", href: "/" },
   ];
 
   const LinksForUser = [
     { name: "Home", href: "/" },
     { name: "Buy Events", href: "/dashboard/buy-events" },
+    { name: "My Tickets", href: "/dashboard/my-tickets" },
   ];
 
   const activeLinks = role === "ADMIN" ? LinksForAdmin : LinksForUser;

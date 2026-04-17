@@ -10,7 +10,6 @@ const EventsDetails = async ({ params }: PageProps) => {
   const eventId = id as string;
 
   const singeEvent = await getSingleEvents(eventId);
-  console.log("single events", singeEvent);
 
   const {
     title,
@@ -20,6 +19,7 @@ const EventsDetails = async ({ params }: PageProps) => {
     time,
     venue,
     type,
+
     registrationFee,
     isFeatured,
     organizerName,
@@ -120,18 +120,16 @@ const EventsDetails = async ({ params }: PageProps) => {
             </ul>
 
             <BuyTicketButton
-              id={eventId}
+              eventId={eventId}
+              title={title}
               image={image}
-              name={title}
-              price={registrationFee}
               date={date}
               time={time}
+              venue={venue}
+              price={registrationFee}
               organizerEmail={organizerEmail}
+              type={type}
             />
-            {/* <button className="w-full cursor-pointer py-4 bg-ec-accent hover:bg-black text-white font-bold rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-ec-accent/20">
-              Buy Ticket Now
-            </button> */}
-
             <p className="text-center text-gray-400 text-xs mt-4 italic">
               * Limited seats available for this {type.toLowerCase()} event *
             </p>

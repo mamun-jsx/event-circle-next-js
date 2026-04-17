@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 const RegisterForm = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -16,20 +17,26 @@ const RegisterForm = () => {
 
   // action for register
   const onSubmit: SubmitHandler<IRegisterFormInput> = async (data) => {
-    try {
-      const result = await registerUser(data);
-      console.log("Register Result:", result);
-      if (result && result.success) {
-        localStorage.setItem("token", result.token);
-        toast.success("Registration successful");
-        router.refresh();
-        router.push("/");
-      } else {
-        toast.error("Registration failed");
-      }
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    await toast.promise(
+      (async () => {
+        const result = await registerUser(data);
+        console.log("Register Result:", result);
+        if (result && result?.success) {
+          localStorage.setItem("token", result?.token);
+          toast.success("Registration successful");
+          router.refresh();
+          router.push("/");
+        } else {
+          toast.error("Registration failed");
+        }
+      })(),
+      {
+        loading: "Registering...",
+        success: "Registration successful!",
+        error: "Registration failed",
+      },
+    );
+
   };
 
   // Using your brand variables directly

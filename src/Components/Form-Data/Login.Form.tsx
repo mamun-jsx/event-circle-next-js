@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { ILoginFormInputLogin } from "@/Types/fetchDataType";
 import { loginUser } from "@/action/auth/auth.login";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 export default function LoginForm() {
   const router = useRouter();
@@ -13,23 +13,33 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginFormInputLogin>();
-
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/";
+  console.log("redirectPath -> ", searchParams);
   const onSubmit: SubmitHandler<ILoginFormInputLogin> = async (data) => {
-    try {
-      const result = await loginUser(data);
+    // 1. toast.promise wraps the entire login logic
+    await toast.promise(
+      (async () => {
+        const result = await loginUser(data);
 
-      // result is now typed as IAuthResponse
-      if (result && result.success) {
+        // If result exists but success is false, manually throw to trigger 'error' toast
+        if (!result || !result.success) {
+          throw new Error(result?.message || "Login failed");
+        }
+
+        // Success logic (token storage and navigation)
         localStorage.setItem("token", result.token);
-        toast.success("Login successful");
         router.refresh();
-        router.push("/");
-      } else {
-        toast.error("Login failed");
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
+        router.push(redirectPath);
+
+        return result; // Passes this to the success message
+      })(),
+      {
+        loading: "Logging in...",
+        success: "Login successful!",
+        error: (err) => `Error: ${err.message}`, // Dynamically shows the thrown error message
+      },
+    );
   };
 
   // Styles pulled from your specific design

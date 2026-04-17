@@ -2,36 +2,91 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { buySingleTicket } from "@/action/user";
 
 export const BuyTicketButton = ({
   eventId,
-  name,
+  title,
+  image,
+  date,
+  time,
+  venue,
   price,
+  type,
+  organizerEmail,
 }: {
   eventId: string;
+  title: string;
   image: string;
-  name: string;
-  price: number;
   date: string;
   time: string;
+  venue: string;
+  price: number;
+  type: string;
   organizerEmail: string;
 }) => {
+  const token = localStorage?.getItem("token");
+  const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     mobile: "",
     email: "",
   });
+  // const eventData = {
 
+  // };
+  // event form.. button.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log("Booking Details:", { eventId, ...formData });
-
+      // console.log({
+      //   eventId,
+      //   title,
+      //   image,
+      //   date,
+      //   time,
+      //   venue,
+      //   price,
+      //   type,
+      //   organizerEmail,
+      //   ...formData,
+      // });
       setIsOpen(false);
     } catch (error) {
       toast.error("Something went wrong");
+    }
+  };
+  const handlePaymentConfirmBtn = async () => {
+    try {
+      if (!token) {
+        router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+        toast.error("Please login first");
+        return;
+      }
+      const res = await buySingleTicket({
+        eventId,
+        title,
+        image,
+        date,
+        time,
+        venue,
+        price,
+        type,
+        organizerEmail,
+        ...formData,
+      });
+      
+      if (res?.success) {
+        window.location.href = res?.url;
+      }
+
+      console.log(`payment successfull ${price}`);
+    } catch (error) {
+      console.log("catch error--> ", error);
+      // toast.error("Something went wrong");
     }
   };
 
@@ -48,7 +103,7 @@ export const BuyTicketButton = ({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl relative text-black">
-            <h2 className="text-2xl font-bold mb-4">Book Ticket for {name}</h2>
+            <h2 className="text-2xl font-bold mb-4">Book Ticket for {title}</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -94,13 +149,14 @@ export const BuyTicketButton = ({
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 py-3 bg-gray-200 rounded-xl font-semibold"
+                  className="flex-1 py-3 bg-gray-200 rounded-xl font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
+                  onClick={handlePaymentConfirmBtn}
                   type="submit"
-                  className="flex-1 py-3 bg-ec-accent text-white rounded-xl font-bold hover:bg-black transition-colors"
+                  className="flex-1 cursor-pointer py-3 bg-ec-accent text-white rounded-xl font-bold hover:bg-black transition-colors"
                 >
                   Confirm ( ${price} )
                 </button>
