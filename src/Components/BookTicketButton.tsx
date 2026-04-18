@@ -27,9 +27,11 @@ export const BuyTicketButton = ({
   organizerEmail: string;
 }) => {
   const token = localStorage?.getItem("token");
+  console.log("token from book ticket button--> ", token);
   const pathname = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     userName: "",
     mobile: "",
@@ -42,27 +44,11 @@ export const BuyTicketButton = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // console.log({
-      //   eventId,
-      //   title,
-      //   image,
-      //   date,
-      //   time,
-      //   venue,
-      //   price,
-      //   type,
-      //   organizerEmail,
-      //   ...formData,
-      // });
-      setIsOpen(false);
-    } catch (error) {
-      toast.error("Something went wrong");
-    }
-  };
-  const handlePaymentConfirmBtn = async () => {
-    try {
       if (!token) {
-        router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+        // router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+        console.log(token, " from submit button ");
+        router.push("/login");
+
         toast.error("Please login first");
         return;
       }
@@ -78,15 +64,15 @@ export const BuyTicketButton = ({
         organizerEmail,
         ...formData,
       });
-      
-      if (res?.success) {
-        window.location.href = res?.url;
-      }
 
-      console.log(`payment successfull ${price}`);
+      if (res?.success && res?.url) {
+        window.location.href = res.url;
+      } else {
+        toast.error(res?.message || "Payment initiation failed");
+      }
     } catch (error) {
       console.log("catch error--> ", error);
-      // toast.error("Something went wrong");
+      toast.error("Something went wrong");
     }
   };
 
@@ -154,7 +140,6 @@ export const BuyTicketButton = ({
                   Cancel
                 </button>
                 <button
-                  onClick={handlePaymentConfirmBtn}
                   type="submit"
                   className="flex-1 cursor-pointer py-3 bg-ec-accent text-white rounded-xl font-bold hover:bg-black transition-colors"
                 >

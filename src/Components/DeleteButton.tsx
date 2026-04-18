@@ -18,7 +18,7 @@ export const DeleteButton = ({ id }: { id: string }) => {
       const response = await deleteEventById(id);
 
       if (response) {
-        toast.success(response.message || "Deleted successfully");
+        toast.success(response?.message || "Deleted successfully");
         router.refresh();
       } else {
         toast.error("Failed to delete");
