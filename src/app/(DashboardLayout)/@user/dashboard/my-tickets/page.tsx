@@ -1,22 +1,13 @@
-import { cookies } from "next/headers";
-import { jwtDecode } from "jwt-decode";
 import MyTicketTable from "@/Components/MyTicketTable";
-
-type TokenPayload = {
-  id: string;
-  email: string;
-  role: string;
-};
+import { getAuthUser } from "@/lib/current.auth";
 
 const MyTickets = async () => {
-  const token = (await cookies()).get("auth-token")?.value;
-
+  const user = await getAuthUser();
+  const token = user?.token;
   if (!token) {
     return <div>Please login</div>;
   }
-
-  const payload = jwtDecode<TokenPayload>(token);
-  const userEmail = payload.email;
+  const userEmail = user?.email;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/my-ticket/${userEmail}`,

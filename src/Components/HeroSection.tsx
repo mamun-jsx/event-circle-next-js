@@ -30,10 +30,10 @@ const HomeHero = () => {
 
           <div className="flex flex-wrap gap-5">
             <Link
-              href="/dashboard/add-events"
+              href="/about"
               className="px-8 py-4 bg-ec-primary text-white font-bold rounded-2xl hover:bg-ec-accent transition-all shadow-xl shadow-(--ec-primary)/20 hover:scale-105"
             >
-              Start Hosting
+              About Us
             </Link>
             <Link
               href="/events"

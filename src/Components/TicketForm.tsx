@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { buyTickets } from "../action/user/buyTickets";
 import { User, Mail, Phone, Ticket, Loader2, ArrowRight } from "lucide-react";
+import toast from "react-hot-toast";
+
 // For the event details passed to the form
 interface EventDetails {
   eventId: string;
@@ -31,21 +33,21 @@ interface TicketFormProps {
 }
 
 export default function TicketForm({ eventDetails, user }: TicketFormProps) {
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-
+    if (!user?.token) {
+      toast.error("Please login first");
+   
+      setLoading(false);
+      return;
+    }
     try {
-      const result = await buyTickets(
-        eventDetails,
-        user?.token || "",
-        formData,
-      );
-      console.log(result, "from ticket form");
+      const result = await buyTickets(eventDetails, user.token, formData);
       if (result?.success && result?.url) {
         window.location.replace(result.url);
       } else {

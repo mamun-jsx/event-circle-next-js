@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Ticket = {
   id: string;
   title: string;
@@ -9,9 +11,11 @@ type Ticket = {
   email: string;
   transactionId: string;
   status: string;
+  eventId: string;
 };
 
 const MyTicketTable = ({ data }: { data: Ticket[] }) => {
+  console.log(data, " see tickets");
   return (
     <div className="w-full overflow-x-auto">
       <table className="min-w-[900px] w-full border border-gray-300 rounded-lg">
@@ -72,9 +76,14 @@ const MyTicketTable = ({ data }: { data: Ticket[] }) => {
 
               {/* ACTION */}
               <td className="p-3 text-center">
-                <button className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
-                  Review
-                </button>
+                {ticket.status === "SUCCESS" && (
+                  <Link
+                    href={`/dashboard/my-tickets/${ticket?.eventId}`}
+                    className="px-3 py-1 border rounded text-sm hover:bg-gray-100"
+                  >
+                    Review
+                  </Link>
+                )}
               </td>
             </tr>
           ))}
