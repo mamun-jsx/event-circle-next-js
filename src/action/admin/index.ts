@@ -22,8 +22,3 @@ export const deleteEventById = async (id: string) => {
   return await axiosInstance.delete(`/api/admin/delete-event/${id}`);
 };
 
-// get all tickets
-
-export const getAllTickets = async () => {
-  return await axiosInstance.get("/api/all-tickets");
-};

@@ -27,6 +27,7 @@ export const BuyTicketButton = ({
   organizerEmail: string;
 }) => {
   const token = localStorage?.getItem("token");
+  const email = localStorage.getItem("user-email");
   console.log("token from book ticket button--> ", token);
   const pathname = usePathname();
   const router = useRouter();
@@ -35,11 +36,9 @@ export const BuyTicketButton = ({
   const [formData, setFormData] = useState({
     userName: "",
     mobile: "",
-    email: "",
+    email: email,
   });
-  // const eventData = {
 
-  // };
   // event form.. button.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,9 +124,11 @@ export const BuyTicketButton = ({
                   required
                   type="email"
                   className="w-full p-3 border rounded-xl"
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  value={email as string}
+                  readOnly
+                  // onChange={(e) =>
+                  //   setFormData({ ...formData, email: e.target.value })
+                  // }
                 />
               </div>
 

@@ -39,7 +39,6 @@ const NavBar = () => {
     router.refresh(); // Tell Next.js to re-sync server components
     router.push("/login");
   };
-  console.log("token from nav bar", token);
   return (
     <nav className=" text-white bg-black sticky top-0 z-50 border-b border-[#868787]">
       <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">

@@ -17,7 +17,7 @@ const Sidebar = ({ role = "USER" }: { role?: string }) => {
 
   const LinksForUser = [
     { name: "Home", href: "/" },
-    { name: "Buy Events", href: "/dashboard/buy-events" },
+    { name: "My Reviews", href: "/dashboard/my-reviews" },
     { name: "My Tickets", href: "/dashboard/my-tickets" },
   ];
 
