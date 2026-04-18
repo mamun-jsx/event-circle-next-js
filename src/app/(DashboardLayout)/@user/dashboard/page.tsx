@@ -1,5 +1,8 @@
+import { getAuthUser } from "@/lib/current.auth";
 
-const UserDashboard = () => {
+const UserDashboard = async () => {
+  const user = await getAuthUser();
+  console.log(user);
   return <div>User Dashboard</div>;
 };
 

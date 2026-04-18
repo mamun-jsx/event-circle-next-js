@@ -15,17 +15,16 @@ const MyTickets = async () => {
     return <div>Please login</div>;
   }
 
-  // ✅ decode JWT
   const payload = jwtDecode<TokenPayload>(token);
   const userEmail = payload.email;
-  console.log(payload);
-
-  console.log(userEmail, " email ");
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/my-ticket/${userEmail}`,
     {
       cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
   );
 
@@ -34,9 +33,14 @@ const MyTickets = async () => {
   return (
     <div>
       <h1 className="text-2xl font-bold text-black mb-6">
-        My all tickets (total : {data.data?.length})
+        My all tickets (total: {data.data?.length || 0})
       </h1>
-      <MyTicketTable data={data.data} />
+
+      {data.data?.length === 0 ? (
+        <p>No tickets found</p>
+      ) : (
+        <MyTicketTable data={data.data || []} />
+      )}
     </div>
   );
 };

@@ -22,9 +22,3 @@ export const getSingleEvents = async (id: string) => {
 };
 
 // buy ticket
-export const buySingleTicket = async (payload: any) => {
-  const res = await axiosIntance.post("/api/buy-ticket", payload);
-
-  return res;
-};
-

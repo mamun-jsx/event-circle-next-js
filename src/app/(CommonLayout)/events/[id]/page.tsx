@@ -1,6 +1,7 @@
 import { getSingleEvents } from "@/action/user";
-import { BuyTicketButton } from "@/Components/BookTicketButton";
-import { Calendar, MapPin, Clock, ShieldCheck, Mail, User } from "lucide-react";
+import TicketForm from "@/Components/TicketForm";
+import { getAuthUser } from "@/lib/current.auth";
+import { Calendar, MapPin, Clock, Mail, User } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -8,9 +9,16 @@ interface PageProps {
 const EventsDetails = async ({ params }: PageProps) => {
   const { id } = await params;
   const eventId = id as string;
-
   const singeEvent = await getSingleEvents(eventId);
 
+  const user = await getAuthUser();
+  if (!singeEvent) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Event not found
+      </div>
+    );
+  }
   const {
     title,
     image,
@@ -19,13 +27,10 @@ const EventsDetails = async ({ params }: PageProps) => {
     time,
     venue,
     type,
-
     registrationFee,
-    isFeatured,
     organizerName,
     organizerEmail,
   } = singeEvent;
-
   return (
     <section className="bg-white min-h-screen pb-20">
       {/* Hero Image Section */}
@@ -107,28 +112,19 @@ const EventsDetails = async ({ params }: PageProps) => {
                 {registrationFee > 0 ? `৳${registrationFee}` : "Free"}
               </h2>
             </div>
-
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center gap-3 text-gray-600 text-sm">
-                <ShieldCheck className="text-green-500 w-5 h-5" />
-                Instant Ticket Confirmation
-              </li>
-              <li className="flex items-center gap-3 text-gray-600 text-sm">
-                <ShieldCheck className="text-green-500 w-5 h-5" />
-                Secure Payment Gateway
-              </li>
-            </ul>
-
-            <BuyTicketButton
-              eventId={eventId}
-              title={title}
-              image={image}
-              date={date}
-              time={time}
-              venue={venue}
-              price={registrationFee}
-              organizerEmail={organizerEmail}
-              type={type}
+            <TicketForm
+              eventDetails={{
+                eventId,
+                title,
+                image,
+                date,
+                time,
+                venue,
+                registrationFee,
+                type,
+                organizerEmail,
+              }}
+              user={user}
             />
             <p className="text-center text-gray-400 text-xs mt-4 italic">
               * Limited seats available for this {type.toLowerCase()} event *

@@ -14,7 +14,7 @@ type Ticket = {
 };
 
 export default function TicketTable({ data }: { data: Ticket[] }) {
-  
+
   return (
     <div className="w-full overflow-x-auto">
       <table className="min-w-[900px] w-full border border-gray-200 rounded-lg">
