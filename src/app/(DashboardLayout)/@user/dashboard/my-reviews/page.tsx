@@ -45,6 +45,9 @@ const MyReviews = async () => {
             <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
               Date
             </th>
+            <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+              Action
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -90,6 +93,13 @@ const MyReviews = async () => {
                   <Calendar className="w-3.5 h-3.5 text-gray-400" />
                   {new Date(review.createdAt).toLocaleDateString("en-GB")}
                 </div>
+              </td>
+              <td className="px-6 py-4">
+                <Link href={`/dashboard/my-reviews/${review.id}`}>
+                  <button className="px-4 py-2 bg-ec-accent text-white rounded-lg">
+                    Edit
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}
