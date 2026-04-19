@@ -1,9 +1,10 @@
+import UserInfoCard from "@/Components/UserInfoCard";
 import { getAuthUser } from "@/lib/current.auth";
 
 const UserDashboard = async () => {
   const user = await getAuthUser();
-  console.log(user);
-  return <div>User Dashboard</div>;
+
+  return <UserInfoCard user={user} />;
 };
 
 export default UserDashboard;

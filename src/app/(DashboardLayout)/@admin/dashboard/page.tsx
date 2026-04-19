@@ -1,7 +1,10 @@
-import React from "react";
+import UserInfoCard from "@/Components/UserInfoCard";
+import { getAuthUser } from "@/lib/current.auth";
 
-const AdminDashboard = () => {
-  return <div>Admin Dashboard</div>;
+const AdminDashboard = async () => {
+  const user = await getAuthUser();
+
+  return <UserInfoCard user={user} />;
 };
 
 export default AdminDashboard;
