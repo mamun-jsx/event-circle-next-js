@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 Event Circle Frontend
 
-## Getting Started
+The **Event Circle Frontend** is a modern, responsive, and performance-optimized web application built with **Next.js 15+** and **Tailwind CSS v4**. It provides a seamless user experience for browsing events, managing bookings, and role-based dashboard control.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS v4 (with `@tailwindcss/postcss`)
+- **Language**: TypeScript
+- **Form Management**: React Hook Form
+- **Authentication Handling**: `js-cookie` (Session storage) & `jwt-decode` (Role extraction)
+- **Icons**: Lucide React & Heroicons
+- **Notifications**: React Hot Toast
+
+---
+
+## 📁 Project Structure & Layouts
+
+The application utilizes **Next.js Route Groups** to organize layouts without affecting the URL structure:
+
+### 1. Common Layout `(CommonLayout)`
+- **Scope**: Home, About, Contact, Login, Register, Events.
+- **Components**: Global Navbar and Footer.
+- **Path**: `/`, `/home`, `/login`, etc.
+
+### 2. Dashboard Layout `(DashboardLayout)`
+- **Scope**: Authenticated areas for Users and Admins.
+- **Architecture**: Uses **Parallel Routes** (`@admin`, `@user`) to render different interfaces at the same URL based on the user's role.
+
+```mermaid
+graph TD
+    A[Dashboard Layout] --> B{Decoded JWT Role}
+    B -- ADMIN --> C[@admin slot]
+    B -- USER --> D[@user slot]
+    C --> E[Admin Sidebar + Dashboard Content]
+    D --> F[User Sidebar + Dashboard Content]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛡️ Role-Based Access Control (RBAC)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+RBAC is strictly enforced across the application:
+- **Middleware**: Validates the presence of session cookies.
+- **Layout Logic**: The primary dashboard layout decodes the JWT and determines which parallel route slot to display.
+- **Conditional Rendering**: Navigation items in the `Sidebar` are filtered based on the `user-role` cookie.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ Prerequisites & Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Environment Variables
+Create a `.env` file in the `event-circle-frontend` root:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+NEXT_PUBLIC_BACKEND_URL="http://localhost:4001"
+```
 
-## Deploy on Vercel
+### 2. Installation
+```bash
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Run Development Server
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📦 Key UI Components
+
+| Component | Description |
+| :--- | :--- |
+| `NavBar.tsx` | Main navigation with dynamic login/logout buttons. |
+| `Sidebar.tsx` | Vertical navigation for dashboards, role-adaptive. |
+| `TicketForm.tsx` | Integrated booking form with payment initialization. |
+| `EventCard.tsx` | reusable component for event previews and registration. |
+| `MyTicketTable.tsx`| List of user-specific bookings with payment status. |
+| `TicketTable.tsx` | Admin management tool for viewing all platform tickets. |
+
+---
+
+## 🚀 Available Scripts
+
+- `npm run dev`: Runs the app in development mode.
+- `npm run build`: Builds the production bundle.
+- `npm run start`: Starts the production server.
+- `npm run lint`: Runs ESLint for code quality checks.
