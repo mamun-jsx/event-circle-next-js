@@ -15,7 +15,6 @@ type Ticket = {
 };
 
 const MyTicketTable = ({ data }: { data: Ticket[] }) => {
-  console.log(data, " see tickets");
   return (
     <div className="w-full overflow-x-auto">
       <table className="min-w-[900px] w-full border border-gray-300 rounded-lg">
@@ -76,7 +75,7 @@ const MyTicketTable = ({ data }: { data: Ticket[] }) => {
 
               {/* ACTION */}
               <td className="p-3 text-center">
-                {ticket.status === "SUCCESS" && (
+                {ticket?.status === "SUCCESS" && (
                   <Link
                     href={`/dashboard/my-tickets/${ticket?.eventId}`}
                     className="px-3 py-1 border rounded text-sm hover:bg-gray-100"

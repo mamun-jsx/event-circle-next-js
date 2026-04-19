@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 const AllTickets = async () => {
   // ✅ Get token from cookies (server-side)
   const token = (await cookies()).get("auth-token")?.value;
-
+  
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/all-tickets`,
     {

@@ -4,10 +4,12 @@ import { getAuthUser } from "@/lib/current.auth";
 const MyTickets = async () => {
   const user = await getAuthUser();
   const token = user?.token;
+
   if (!token) {
     return <div>Please login</div>;
   }
   const userEmail = user?.email;
+  const userId = user?.id;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/my-ticket/${userEmail}`,
@@ -18,19 +20,19 @@ const MyTickets = async () => {
       },
     },
   );
-
   const data = await res.json();
+  const tickets = data?.data || [];
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-black mb-6">
-        My all tickets (total: {data.data?.length || 0})
+        My all tickets (total: {tickets.length})
       </h1>
 
-      {data.data?.length === 0 ? (
+      {tickets.length === 0 ? (
         <p>No tickets found</p>
       ) : (
-        <MyTicketTable data={data.data || []} />
+        <MyTicketTable data={tickets} />
       )}
     </div>
   );

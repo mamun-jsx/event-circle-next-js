@@ -8,6 +8,10 @@ interface ReviewTable {
   comment: string;
   userId: string;
   eventId: string;
+  event: {
+    title: string;
+    image?: string;
+  };
   createdAt: string;
   updatedAt: string;
 }
@@ -26,9 +30,11 @@ const MyReviews = async () => {
     },
   );
 
-  const data = await res.json();
-  console.log(data.data);
-  return (
+    const data = await res.json();
+    const reviews: ReviewTable[] = data?.data || [];
+
+    return (
+
     <div className="w-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
       <table className="w-full text-left border-collapse">
         <thead>
@@ -40,7 +46,7 @@ const MyReviews = async () => {
               Comment
             </th>
             <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
-              Event ID
+              Event
             </th>
             <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
               Date
@@ -51,11 +57,35 @@ const MyReviews = async () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {data.data.map((review: ReviewTable) => (
+          {reviews.map((review: ReviewTable) => (
             <tr
               key={review.id}
               className="hover:bg-gray-50/50 transition-colors"
             >
+              {/* Event Column */}
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  {review.event?.image ? (
+                    <img
+                      src={review.event.image}
+                      alt={review.event.title}
+                      className="w-10 h-10 rounded-lg object-cover border border-gray-100"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-gray-400" />
+                    </div>
+                  )}
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-gray-900 line-clamp-1">
+                      {review.event?.title || "Unknown Event"}
+                    </span>
+                    <span className="text-[10px] text-gray-400 font-mono">
+                      {review.eventId.split("-")[0]}...
+                    </span>
+                  </div>
+                </div>
+              </td>
               {/* Rating Column */}
               <td className="px-6 py-4">
                 <div className="flex items-center gap-1.5">
@@ -77,15 +107,6 @@ const MyReviews = async () => {
                 </div>
               </td>
 
-              {/* Event ID Column */}
-              <td className="px-6 py-4">
-                <Link
-                  href={`/events/${review?.eventId}`}
-                  className="text-[10px] bg-gray-100 text-green-500 underline px-2 py-1 rounded text-gray-500 font-mono"
-                >
-                  {review.eventId.split("-")[0]}...
-                </Link>
-              </td>
 
               {/* Date Column */}
               <td className="px-6 py-4 text-sm text-gray-500">
@@ -106,13 +127,16 @@ const MyReviews = async () => {
         </tbody>
       </table>
 
-      {data.data.length === 0 && (
+      {reviews.length === 0 && (
         <div className="py-20 text-center">
-          <p className="text-gray-400">No reviews found.</p>
+          <MessageSquare className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+          <p className="text-gray-400 font-medium">No reviews found.</p>
+          <p className="text-xs text-gray-300 mt-1">Visit an event to share your experiences!</p>
         </div>
       )}
     </div>
   );
+  
 };
 
 export default MyReviews;

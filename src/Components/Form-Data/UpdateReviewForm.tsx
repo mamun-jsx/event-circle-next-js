@@ -18,8 +18,8 @@ export default function UpdateReviewForm({
   initialData: ReviewData;
   token?: string;
 }) {
-  const [rating, setRating] = useState(initialData.rating);
-  const [comment, setComment] = useState(initialData.comment);
+  const [rating, setRating] = useState(initialData?.rating || 5);
+  const [comment, setComment] = useState(initialData?.comment || "");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
