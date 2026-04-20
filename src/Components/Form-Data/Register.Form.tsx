@@ -28,10 +28,10 @@ const RegisterForm = () => {
 
           // 2. Store in Cookies (Correct syntax: one per line or separate calls)
           // Note: Set 'auth-token' first
-          document.cookie = `auth-token=${result?.token}; path=/; samesite=strict`;
+          document.cookie = `auth-token=${result?.token}; path=/; samesite=lax`;
 
           // If you need the email in cookies too, it needs its own line:
-          document.cookie = `user-email=${result?.data?.email}; path=/; samesite=strict`;
+          document.cookie = `user-email=${result?.data?.email}; path=/; samesite=lax`;
 
           // 3. Trigger immediate UI update
           router.refresh();

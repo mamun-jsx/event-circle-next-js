@@ -1,5 +1,6 @@
 "use client";
 import { createEvent } from "@/action/admin";
+import { TApiResponse } from "@/Types/fetchDataType";
 import { EventTypeEnum, IAddFormInputEvent } from "@/Types/formData";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -21,20 +22,20 @@ const AddEventForm = () => {
   const onSubmit: SubmitHandler<IAddFormInputEvent> = async (data) => {
     try {
       const response = await createEvent(data);
-      if (response && (response as any).success !== false) {
-        toast.success("Event created successfully!");
+      if (response?.success) {
+        toast.success(response?.message || "Event created successfully!");
         reset();
       } else {
-        toast.error((response as any)?.message || "Failed to add data");
+        toast.error(response?.message || "Failed to add event");
       }
     } catch (error: any) {
-      toast.error(error.message || "Failed to add data - Forbidden");
+      toast.error(error?.message || "Something went wrong!");
     }
   };
 
   const labelStyle = "block text-sm font-semibold text-[--ec-gray-300] mb-1";
   const inputStyle =
-    "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[--ec-primary] focus:border-transparent outline-none transition-all text-[--foreground]";
+    "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[--ec-primary] focus:border-transparent outline-none transition-all text-black bg-white";
   const errorStyle = "text-red-500 text-xs mt-1";
 
   return (
@@ -129,7 +130,7 @@ const AddEventForm = () => {
             </select>
           </div>
           <div>
-            <label className={labelStyle}>Registration Fee ($)</label>
+            <label className={labelStyle}>Registration Fee (৳)</label>
             <input
               type="number"
               step="0.01"

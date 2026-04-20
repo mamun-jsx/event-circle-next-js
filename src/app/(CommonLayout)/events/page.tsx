@@ -2,6 +2,8 @@ import { getAllEvents } from "@/action/user";
 import EventCard from "@/Components/EventCard";
 import { IEvent } from "@/Types/fetchDataType";
 
+export const dynamic = "force-dynamic";
+
 // Event page
 const Events = async () => {
   const response = await getAllEvents();

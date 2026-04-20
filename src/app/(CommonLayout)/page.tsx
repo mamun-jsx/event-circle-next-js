@@ -5,8 +5,11 @@ import JoinEventCTA from "@/Components/JoinEventCTA";
 import OurProcess from "@/Components/OurProcess";
 import { getAllEvents } from "@/action/user";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
-  const events = await getAllEvents();
+  const response = await getAllEvents();
+  const events = response?.data || [];
   return (
     <div>
       <HomeHero />

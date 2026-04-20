@@ -17,11 +17,11 @@ export const DeleteButton = ({ id }: { id: string }) => {
     try {
       const response = await deleteEventById(id);
 
-      if (response) {
+      if (response?.success) {
         toast.success(response?.message || "Deleted successfully");
         router.refresh();
       } else {
-        toast.error("Failed to delete");
+        toast.error(response?.message || "Failed to delete");
       }
     } catch (error) {
       toast.error("Something went wrong");

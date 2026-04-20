@@ -27,8 +27,8 @@ export default function LoginForm() {
 
         // Success logic (token storage and navigation)
         // localStorage.setItem("token", result.token);
-        document.cookie = `auth-token=${result.token}; path=/; samesite=strict`;
-        document.cookie = `user-email=${result?.data?.email}; path=/; samesite=strict`;
+        document.cookie = `auth-token=${result.token}; path=/; samesite=lax`;
+        document.cookie = `user-email=${result?.data?.email}; path=/; samesite=lax`;
         localStorage.setItem("token", result.token); 
         localStorage.setItem("user-email", result?.data?.email);
         router.refresh();

@@ -37,6 +37,15 @@ export interface IEvent {
   isFeatured: boolean;
   organizerName: string;
   organizerEmail: string;
+  reviews?: any[]; // Keep as any for now or define a proper Review interface
   createdAt: string; // ISO Date string
   updatedAt: string; // ISO Date string
 }
+
+export type TApiResponse<T = any> = {
+  success: boolean;
+  message: string;
+  data?: T;
+  url?: string;
+};
+

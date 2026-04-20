@@ -1,12 +1,14 @@
 import { getAllEvents } from "@/action/user";
 import { DeleteButton } from "@/Components/DeleteButton";
+import { IEvent } from "@/Types/fetchDataType";
+
 import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const ManageEvents = async () => {
   const response = await getAllEvents();
-  const events = Array.isArray(response) ? response : response?.data || [];
-  
+  const events: IEvent[] = Array.isArray(response) ? response : response?.data || [];
+
   return (
     <div className="p-8 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto">
@@ -48,7 +50,7 @@ const ManageEvents = async () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {events.map((event: any) => (
+              {events.map((event: IEvent) => (
                 <tr
                   key={event.id}
                   className="hover:bg-gray-50/50 transition-colors group"
@@ -113,7 +115,7 @@ const ManageEvents = async () => {
                         <Edit size={20} />
                       </Link>
 
-                      <DeleteButton id={event.id} />
+                      <DeleteButton id={event.id as string} />
                     </div>
                   </td>
                 </tr>

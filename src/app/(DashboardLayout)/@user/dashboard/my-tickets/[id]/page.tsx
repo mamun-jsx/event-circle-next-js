@@ -11,11 +11,17 @@ interface PageProps {
 const GiveReview = async ({ params }: PageProps) => {
   const { id } = await params;
   const user = await getAuthUser();
-  const result = await getSingleEvents(id);
+  const response = await getSingleEvents(id);
+  const result = response?.data;
 
   if (!user)
     return (
       <div className="text-center py-20">Please login to give a review.</div>
+    );
+
+  if (!result)
+    return (
+      <div className="text-center py-20">Event not found.</div>
     );
 
   return (

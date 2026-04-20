@@ -1,21 +1,22 @@
-import axiosIntance from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
+import { IEvent, TApiResponse } from "@/Types/fetchDataType";
 
 // get all events
-export const getAllEvents = async () => {
+export const getAllEvents = async (): Promise<TApiResponse<IEvent[]> | undefined> => {
   try {
-    const res = await axiosIntance.get("/api/events");
-    return res.data;
+    const res = await axiosInstance.get("/api/events");
+    return res as unknown as TApiResponse<IEvent[]>;
   } catch (error) {
     console.log(error);
   }
 };
 
 // get a single event
-export const getSingleEvents = async (id: string) => {
+export const getSingleEvents = async (id: string): Promise<TApiResponse<IEvent> | undefined> => {
   try {
-    const res = await axiosIntance.get(`/api/events/${id}`);
+    const res = await axiosInstance.get(`/api/events/${id}`);
 
-    return res.data;
+    return res as unknown as TApiResponse<IEvent>;
   } catch (error) {
     console.log(error);
   }

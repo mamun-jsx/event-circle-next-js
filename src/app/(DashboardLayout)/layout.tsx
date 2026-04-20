@@ -3,6 +3,8 @@ import Sidebar from "@/Components/Sidebar";
 import { getAuthUser } from "@/lib/current.auth";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 interface DashboardLayoutProps {
   user: React.ReactNode;
   admin: React.ReactNode;
@@ -16,7 +18,7 @@ const DashboardLayout = async ({ user, admin }: DashboardLayoutProps) => {
     redirect("/login");
   }
 
-  const role = currentUser.role;
+  const role = currentUser.role; 
 
   return (
     <div className="flex min-h-screen">

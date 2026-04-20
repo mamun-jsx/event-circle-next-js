@@ -35,7 +35,8 @@ interface reviewData {
 const EventsDetails = async ({ params }: PageProps) => {
   const { id } = await params;
   const eventId = id as string;
-  const singeEvent = await getSingleEvents(eventId);
+  const response = await getSingleEvents(eventId);
+  const singeEvent = response?.data;
   console.log(singeEvent);
   const user = await getAuthUser();
   if (!singeEvent) {
