@@ -6,7 +6,7 @@ const HomeHero = () => {
 
   return (
     <div 
-        className="relative min-h-[90vh] flex items-center px-6 overflow-hidden bg-white">
+        className="relative min-h-[80vh] flex items-center px-6 overflow-hidden bg-white">
       {/* Dynamic Brand Blobs */}
       <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-(--ec-primary)/10 rounded-full blur-[120px] animate-pulse"></div>
       <div className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] bg-(--ec-accent)/10 rounded-full blur-[100px]"></div>

@@ -49,6 +49,9 @@ const Footer = () => {
             <Link href="/contact" className="hover:text-white transition">
               Contact
             </Link>
+            <Link href="/privacy-policy" className="hover:text-white transition">
+              Privacy Policy
+            </Link>
           </nav>
         </div>
 
