@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
-
 const CompanyCollaboration = () => {
   const data = [
     {
@@ -41,10 +41,14 @@ const CompanyCollaboration = () => {
   ];
 
   return (
-    <section className="py-24 ">
+    <div
+      className="py-24"
+    >
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        {/* Header  */}
+        <div 
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        >
           <div className="max-w-2xl">
             <span className="text-ec-accent font-bold uppercase tracking-widest text-sm">
               Our Partners
@@ -96,7 +100,7 @@ const CompanyCollaboration = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

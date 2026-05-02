@@ -11,6 +11,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ILoginFormInputLogin>();
   const searchParams = useSearchParams();
@@ -42,6 +43,12 @@ export default function LoginForm() {
         error: (err) => `Error: ${err.message}`, // Dynamically shows the thrown error message
       },
     );
+  };
+
+  const handleQuickLogin = (email: string, pass: string) => {
+    setValue("email", email);
+    setValue("password", pass);
+    handleSubmit(onSubmit)();
   };
 
   // Styles pulled from your specific design
@@ -105,6 +112,23 @@ export default function LoginForm() {
           >
             Sign In
           </button>
+
+          <div className="flex gap-4 mt-4">
+            <button
+              type="button"
+              onClick={() => handleQuickLogin("admin@gmail.com", "12345678")}
+              className="flex-1 py-2 text-xs bg-[#5b3d88] text-white font-semibold rounded-lg hover:bg-[#4a316e] transition-all transform active:scale-95"
+            >
+              Admin Login
+            </button>
+            <button
+              type="button"
+              onClick={() => handleQuickLogin("mamun@gmail.com", "12345678")}
+              className="flex-1 py-2 text-xs bg-[#19729f] text-white font-semibold rounded-lg hover:bg-[#145d82] transition-all transform active:scale-95"
+            >
+              User Login
+            </button>
+          </div>
         </form>
 
         <p className="mt-6 text-center text-[#a0a1a1] text-sm">

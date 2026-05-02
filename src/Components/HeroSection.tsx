@@ -3,8 +3,10 @@
 import Link from "next/link";
 
 const HomeHero = () => {
+
   return (
-    <section className="relative min-h-[90vh] flex items-center px-6 overflow-hidden bg-white">
+    <div 
+        className="relative min-h-[90vh] flex items-center px-6 overflow-hidden bg-white">
       {/* Dynamic Brand Blobs */}
       <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-(--ec-primary)/10 rounded-full blur-[120px] animate-pulse"></div>
       <div className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] bg-(--ec-accent)/10 rounded-full blur-[100px]"></div>
@@ -74,8 +76,9 @@ const HomeHero = () => {
           <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-ec-secondary rounded-full -z-10 blur-2xl"></div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
 export default HomeHero;
+ 
