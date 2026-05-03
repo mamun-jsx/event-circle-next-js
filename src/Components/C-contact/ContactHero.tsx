@@ -9,7 +9,8 @@ const ContactHero = () => (
         Get in <span className="text-[var(--ec-accent)]">Touch</span>
       </h1>
       <p className="mt-4 text-[var(--ec-gray-200)] text-lg max-w-xl mx-auto">
-        Have an event in mind? Let's make it a reality. Our team is here to help
+        Have an event in mind? Let&apos;s make it a reality. Our team is here to help
+
         you every step of the way.
       </p>
     </div>

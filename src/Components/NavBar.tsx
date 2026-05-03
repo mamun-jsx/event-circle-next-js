@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 
 // 1. Removed 'async' from the component definition
 const NavBar = () => {
@@ -10,10 +11,11 @@ const NavBar = () => {
   const [token, setToken] = useState<string | undefined>(undefined);
   const router = useRouter();
   const pathname = usePathname();
+  
   // Read cookie only once when component mounts
   useEffect(() => {
     const savedToken = Cookies.get("auth-token");
-    setToken(savedToken);
+    setToken((prev) => (prev !== savedToken ? savedToken : prev));
   }, [pathname]);
 
   const navLinks = [
@@ -45,9 +47,11 @@ const NavBar = () => {
         {/* Left Side: Logo */}
         <div className="flex items-center">
           <Link href="/">
-            <img
+            <Image
               src="/logoIcon.png"
               alt="EventCircle"
+              width={200}
+              height={80}
               className="h-16 md:h-22 w-auto object-contain"
             />
           </Link>

@@ -58,23 +58,36 @@ const ChatWindow = ({ onClose }: ChatWindowProps) => {
       history,
     };
 
-    // ✅ console.log the data being sent — API wiring comes next
-    console.log("📤 Chatbot Payload to API:", payload);
-    console.log("📝 User asked:", text.trim());
-    console.log("📜 Conversation history:", history);
-
-    // Simulate bot reply (placeholder until backend is connected)
-    setTimeout(() => {
-      const botMessage: TMessage = {
-        id: `bot-${Date.now()}`,
+    // ✅ Now connecting to the backend API
+    try {
+      const { chatWithAI } = await import("../../action/chatbot");
+      const result = await chatWithAI(text.trim(), history);
+      
+      if (result?.success && result.data) {
+        const botMessage: TMessage = {
+          id: `bot-${Date.now()}`,
+          role: "bot",
+          text: result.data,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, botMessage]);
+      } else {
+        throw new Error(result?.message || "Failed to get response from AI");
+      }
+    } catch (error) {
+      console.error("Chatbot Error:", error);
+      const errorMessage: TMessage = {
+        id: `bot-err-${Date.now()}`,
         role: "bot",
-        text: "⏳ Backend not connected yet — stay tuned! (check your console for the payload)",
+        text: "Sorry, I'm having trouble connecting right now. Please try again later.",
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, botMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 800);
+    }
   };
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

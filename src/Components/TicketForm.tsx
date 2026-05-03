@@ -33,8 +33,8 @@ interface TicketFormProps {
 }
 
 export default function TicketForm({ eventDetails, user }: TicketFormProps) {
-
   const [loading, setLoading] = useState(false);
+  const isPastEvent = new Date(eventDetails.date) < new Date(new Date().toDateString());
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -130,14 +130,13 @@ export default function TicketForm({ eventDetails, user }: TicketFormProps) {
         </div>
       </div>
 
-      {/* Dynamic CTA Button */}
       <button
         type="submit"
-        disabled={loading}
-        className={`w-full relative overflow-hidden py-4 rounded-2xl font-bold text-sm transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group shadow-xl ${
-          loading
-            ? "bg-gray-100 text-gray-400 cursor-wait"
-            : "bg-black text-white hover:bg-ec-accent shadow-ec-accent/10"
+        disabled={loading || isPastEvent}
+        className={`w-full relative overflow-hidden py-4 rounded-2xl font-bold text-sm transition-all transform flex items-center justify-center gap-2 group shadow-xl ${
+          loading || isPastEvent
+            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+            : "bg-black text-white hover:bg-ec-accent shadow-ec-accent/10 active:scale-[0.98]"
         }`}
       >
         {loading ? (
@@ -145,6 +144,8 @@ export default function TicketForm({ eventDetails, user }: TicketFormProps) {
             <Loader2 className="w-4 h-4 animate-spin" />
             <span>Securing Your Spot...</span>
           </>
+        ) : isPastEvent ? (
+          <span>Event Passed</span>
         ) : (
           <>
             <span>Confirm & Pay ৳{eventDetails.registrationFee}</span>

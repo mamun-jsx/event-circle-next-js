@@ -2,10 +2,11 @@ import { IEvent, TApiResponse } from "@/Types/fetchDataType";
 
 // buyTickets.ts
 export const buyTickets = async (
-  eventData: any,
+  eventData: Partial<IEvent> & { price?: number },
   token: string,
   formData: FormData,
 ): Promise<TApiResponse> => {
+
   const userName = formData.get("userName");
   const mobile = formData.get("mobile");
   const email = formData.get("email");

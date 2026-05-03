@@ -132,7 +132,7 @@ export default function LoginForm() {
         </form>
 
         <p className="mt-6 text-center text-[#a0a1a1] text-sm">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link
             href="/register"
             className="text-[#19729f] ml-1 hover:underline font-medium"
@@ -140,6 +140,7 @@ export default function LoginForm() {
             Register here
           </Link>
         </p>
+
       </div>
     </section>
   );

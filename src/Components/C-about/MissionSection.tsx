@@ -5,7 +5,8 @@ const MissionSection = () => (
         Our Mission
       </h2>
       <p className="mt-6 text-[var(--ec-gray-300)] leading-relaxed">
-        At EventCircle, we believe every moment matters. We've built a platform
+        At EventCircle, we believe every moment matters. We&apos;ve built a platform
+
         that bridges the gap between organizers and attendees, making ticket
         sales as exciting as the event itself. From local workshops to global
         concerts, we power the pulse of your community.

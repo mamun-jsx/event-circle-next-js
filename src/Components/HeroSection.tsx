@@ -27,8 +27,9 @@ const HomeHero = () => {
 
           <p className="text-lg md:text-xl text-(--ec-gray-300) max-w-lg mb-10 leading-relaxed">
             Host spectacular events, manage instant ticketing, and build your
-            community with the world's most intuitive platform.
+            community with the world&apos;s most intuitive platform.
           </p>
+
 
           <div className="flex flex-wrap gap-5">
             <Link

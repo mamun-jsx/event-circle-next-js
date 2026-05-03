@@ -4,6 +4,9 @@ import { IEvent } from "@/Types/fetchDataType";
 import Link from "next/link";
 
 const EventCard = ({ event }: { event: IEvent }) => {
+  // Check if event is in the past (comparing only dates)
+  const isPastEvent = new Date(event.date) < new Date(new Date().toDateString());
+  
   return (
     // Add 'flex flex-col h-full' to ensure all cards have the same height
     <div className="flex flex-col h-full border border-gray-800 rounded-2xl overflow-hidden hover:border-ec-accent transition-all group shadow-lg">
@@ -36,9 +39,9 @@ const EventCard = ({ event }: { event: IEvent }) => {
 
         {/* Details Grid */}
         <div className="grid grid-cols-2 gap-y-3 mb-6">
-          <div className="flex items-center text-gray-300 text-sm">
-            <Calendar className="w-4 h-4 mr-2 text-ec-accent" />
-            <p className="text-black">
+          <div className={`flex items-center text-sm ${isPastEvent ? 'text-red-500 font-bold' : 'text-gray-300'}`}>
+            <Calendar className={`w-4 h-4 mr-2 ${isPastEvent ? 'text-red-500' : 'text-ec-accent'}`} />
+            <p className={isPastEvent ? 'text-red-500' : 'text-black'}>
               {new Date(event.date).toLocaleDateString()}
             </p>
           </div>
@@ -77,9 +80,13 @@ const EventCard = ({ event }: { event: IEvent }) => {
 
           <Link
             href={`/events/${event.id}`}
-            className="block w-full mt-6 py-3 bg-black text-center hover:bg-ec-accent text-white text-sm font-bold rounded-xl transition-all border border-white/10 hover:border-ec-accent"
+            className={`block w-full mt-6 py-3 text-center text-sm font-bold rounded-xl transition-all border ${
+              isPastEvent
+                ? "bg-gray-200 text-gray-500 border-gray-200 hover:bg-gray-300"
+                : "bg-black text-white hover:bg-ec-accent border-white/10 hover:border-ec-accent"
+            }`}
           >
-            View Details
+            {isPastEvent ? "Event Passed - View Details" : "View Details"}
           </Link>
         </div>
       </div>

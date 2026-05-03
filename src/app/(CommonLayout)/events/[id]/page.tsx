@@ -1,6 +1,7 @@
 import { getSingleEvents } from "@/action/user";
 import TicketForm from "@/Components/TicketForm";
 import { getAuthUser } from "@/lib/current.auth";
+import { IReview } from "@/Types/fetchDataType";
 import {
   Calendar,
   MapPin,
@@ -15,23 +16,7 @@ import {
 interface PageProps {
   params: Promise<{ id: string }>;
 }
-interface reviewData {
-  id: string;
-  rating: number;
-  comment: string;
-  userId: string;
-  eventId: string;
-  createdAt: string;
-  updatedAt: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+
 const EventsDetails = async ({ params }: PageProps) => {
   const { id } = await params;
   const eventId = id as string;
@@ -58,6 +43,9 @@ const EventsDetails = async ({ params }: PageProps) => {
     organizerName,
     organizerEmail,
   } = singeEvent;
+
+  const isPastEvent = new Date(date) < new Date(new Date().toDateString());
+
   return (
     <>
       <section className="bg-white min-h-screen pb-20">
@@ -77,9 +65,9 @@ const EventsDetails = async ({ params }: PageProps) => {
               {title}
             </h1>
 
-            <div className="flex flex-wrap gap-6 mb-8 text-gray-600 border-b border-gray-100 pb-8">
-              <div className="flex items-center gap-2">
-                <Calendar className="text-ec-accent w-5 h-5" />
+            <div className="flex flex-wrap gap-6 mb-8 border-b border-gray-100 pb-8">
+              <div className={`flex items-center gap-2 ${isPastEvent ? 'text-red-500 font-bold' : 'text-gray-600'}`}>
+                <Calendar className={`w-5 h-5 ${isPastEvent ? 'text-red-500' : 'text-ec-accent'}`} />
                 <span className="font-medium">
                   {new Date(date).toLocaleDateString("en-GB", {
                     day: "numeric",
@@ -88,7 +76,7 @@ const EventsDetails = async ({ params }: PageProps) => {
                   })}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-gray-600">
                 <Clock className="text-ec-accent w-5 h-5" />
                 <span className="font-medium">{time}</span>
               </div>
@@ -172,7 +160,7 @@ const EventsDetails = async ({ params }: PageProps) => {
 
           {singeEvent.reviews && singeEvent.reviews.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {singeEvent.reviews.map((review: reviewData) => (
+              {singeEvent.reviews.map((review: IReview) => (
                 <div
                   key={review.id}
                   className="relative p-6 bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow group"

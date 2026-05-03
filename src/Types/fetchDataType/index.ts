@@ -11,7 +11,6 @@ export interface IRegisterFormInput {
   password: string;
 }
 
-// types/auth.ts
 export interface IAuthResponseForLogin {
   success: boolean;
   message: string;
@@ -23,6 +22,26 @@ export interface IAuthResponseForLogin {
     role: string;
   };
 }
+
+export interface IReview {
+  id: string;
+  eventId: string;
+  userId: string;
+  userName?: string; // Optional if we use nested user
+  rating: number;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  user?: {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
 
 export interface IEvent {
   id: string;
@@ -37,15 +56,15 @@ export interface IEvent {
   isFeatured: boolean;
   organizerName: string;
   organizerEmail: string;
-  reviews?: any[]; // Keep as any for now or define a proper Review interface
+  reviews?: IReview[]; 
   createdAt: string; // ISO Date string
   updatedAt: string; // ISO Date string
 }
 
-export type TApiResponse<T = any> = {
+export type TApiResponse<T = unknown> = {
   success: boolean;
   message: string;
   data?: T;
+  token?: string;
   url?: string;
 };
-
