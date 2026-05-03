@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthUser } from "./lib/current.auth";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+
   const user = await getAuthUser();
   const { pathname } = request.nextUrl;
 

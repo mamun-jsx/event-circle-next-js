@@ -4,6 +4,7 @@ import { useState } from "react";
 import { buyTickets } from "../action/user/buyTickets";
 import { User, Mail, Phone, Ticket, Loader2, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
+import { EventTypeEnum } from "@/Types/formData";
 
 // For the event details passed to the form
 interface EventDetails {
@@ -14,7 +15,7 @@ interface EventDetails {
   time: string;
   venue: string;
   registrationFee: number;
-  type: "PRIVATE" | "PUBLIC" | string;
+  type: EventTypeEnum;
   organizerEmail: string;
 }
 
