@@ -2,8 +2,10 @@ import axiosInstance from "@/lib/axios";
 import { IEvent, TApiResponse } from "@/Types/fetchDataType";
 import { IAddFormInputEvent } from "@/Types/formData";
 
-export const getAllUser = async () => {
-  return await axiosInstance.get("/api/admin/get-all-users");
+export const getAllUser = async (token?: string) => {
+  return await axiosInstance.get("/api/admin/get-all-users", {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
 };
 
 // create an event

@@ -10,10 +10,12 @@ const FeatureEvent = ({ allEvents }: { allEvents: IEvent[] }) => {
   );
 
   // Filter logic based on the active tab
-  const filteredEvents = allEvents?.filter((event) => {
-    if (activeTab === "FEATURED") return event.isFeatured === true;
-    return event.type === activeTab;
-  });
+  const filteredEvents = allEvents
+    ?.filter((event) => {
+      if (activeTab === "FEATURED") return event.isFeatured === true;
+      return event.type === activeTab;
+    })
+    .slice(0, 6);
 
   const tabStyle = (tab: string) =>
     `px-6 py-2 rounded-full font-bold transition-all border ${

@@ -22,4 +22,14 @@ export const getSingleEvents = async (id: string): Promise<TApiResponse<IEvent> 
   }
 };
 
-// buy ticket
+// get my tickets
+export const getMyTickets = async (email: string, token?: string): Promise<TApiResponse<any[]> | undefined> => {
+  try {
+    const res = await axiosInstance.get(`/api/get-my-ticket/${email}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res as unknown as TApiResponse<any[]>;
+  } catch (error) {
+    console.log(error);
+  }
+};

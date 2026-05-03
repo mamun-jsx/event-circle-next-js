@@ -41,7 +41,7 @@ const EventCard = ({ event }: { event: IEvent }) => {
         <div className="grid grid-cols-2 gap-y-3 mb-6">
           <div className={`flex items-center text-sm ${isPastEvent ? 'text-red-500 font-bold' : 'text-gray-300'}`}>
             <Calendar className={`w-4 h-4 mr-2 ${isPastEvent ? 'text-red-500' : 'text-ec-accent'}`} />
-            <p className={isPastEvent ? 'text-red-500' : 'text-black'}>
+            <p className={isPastEvent ? 'text-red-500' : 'text-black'} suppressHydrationWarning>
               {new Date(event.date).toLocaleDateString()}
             </p>
           </div>
