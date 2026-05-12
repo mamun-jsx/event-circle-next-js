@@ -26,6 +26,18 @@
   --color-ec-primary: var(--ec-primary);
   --color-ec-accent: var(--ec-accent);
   --color-ec-secondary: var(--ec-secondary);
+
+  --animate-spin-slow: spin-slow 8s linear infinite;
+  --animate-bounce-slow: bounce-slow 5s ease-in-out infinite;
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
 }
 
 

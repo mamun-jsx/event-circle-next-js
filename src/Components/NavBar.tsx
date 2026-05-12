@@ -68,14 +68,21 @@ const NavBar = () => {
               {link.name}
             </Link>
           ))}
-          {token && <button onClick={handleLogout}>Logout</button>}
+          {token && (
+            <button
+              onClick={handleLogout}
+              className="bg-[#c53074] hover:bg-opacity-90 text-white px-6 py-2 rounded-full font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-[#c53074]/20 cursor-pointer"
+            >
+              Logout
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button (Hamburger) */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-[#c53074] p-2 transition-transform active:scale-90"
+            className="text-[#c53074] p-2 transition-transform active:scale-90 cursor-pointer"
           >
             {isOpen ? (
               // X Icon
@@ -114,7 +121,7 @@ const NavBar = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`md:hidden bg-black transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-64 border-b border-[#868787]" : "max-h-0"}`}
+        className={`md:hidden bg-black transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-80 border-b border-[#868787]" : "max-h-0"}`}
       >
         <div className="flex flex-col space-y-4 p-6 pt-2">
           {navLinks.map((link) => (
@@ -127,6 +134,17 @@ const NavBar = () => {
               {link.name}
             </Link>
           ))}
+          {token && (
+            <button
+              onClick={() => {
+                handleLogout();
+                setIsOpen(false);
+              }}
+              className="text-left text-[#c53074] hover:text-white transition-colors text-lg border-l-2 border-transparent hover:border-[#c53074] pl-2 font-semibold cursor-pointer"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>
